@@ -1,0 +1,198 @@
+//CLASES
+
+class Pelicula {
+
+  constructor (titulo, genero, annoLanz) {
+
+    let _titulo = titulo;
+
+    let _genero = genero;
+
+    let _annoLanz = annoLanz;
+
+
+
+    function imprimirDatos() {
+
+      console.log(`Titulo: ${_titulo}, Género: ${_genero}, Año de Lanzamiento: ${_annoLanz}.`);
+
+    }
+
+
+
+    this.getTitulo = () => _titulo
+
+    this.getGenero = () => _genero
+
+    this.getAnnoLanz = () => _annoLanz
+
+
+
+    this.setTitulo = function (nuevoTitulo){
+
+      _titulo = nuevoTitulo;
+
+    };
+
+    this.setGenero = function (nuevoGenero){
+
+      _genero = nuevoGenero;
+
+    };
+
+    this.setAnnoLanz = function (nuevoAnnoLanz){
+
+      _annoLanz = nuevoAnnoLanz;
+
+    };
+
+
+
+    this.mostrarDatos = () => imprimirDatos()
+
+  }
+
+}
+
+
+
+class RegistroDePeliculas {
+
+  constructor() {
+
+    this.peliculas = [];
+
+  }
+
+
+
+    agregarPelicula(nuevaPeli) {
+
+      if (nuevaPeli != null && this.buscarPelicula(nuevaPeli) === false) {
+
+        this.peliculas.push(nuevaPeli);
+
+      }
+
+    }
+
+    eliminarPelicula(peli) {
+
+      if (this.buscarPelicula(peli) === true) {
+
+        const indice = this.peliculas.indexOf(peli);
+
+        this.peliculas.splice(indice, 1);
+
+      }
+
+    }
+
+    editarPelicula(peli, nuevoTitulo, nuevoGenero, nuevoAnno) {
+
+      if (this.buscarPelicula(peli) === true){
+
+        const indice = this.peliculas.indexOf(peli);
+
+        if (nuevoTitulo != null && nuevoGenero != null && nuevoAnno != null) {
+
+          this.peliculas[indice].setTitulo(nuevoTitulo);
+
+          this.peliculas[indice].setGenero(nuevoGenero);
+
+          this.peliculas[indice].setAnnoLanz(nuevoAnno);
+
+        }
+
+      }
+
+    }
+
+    cantDePeliculas() {
+
+      return this.peliculas.length;
+
+    }
+
+    //Auxiliar
+
+    buscarPelicula(peli) {
+
+      return this.peliculas.includes(peli);
+
+    } 
+
+}
+
+
+
+//EJEMPLO
+
+const registro = new RegistroDePeliculas();
+
+
+
+//Peliculas
+
+const peli1 = new Pelicula("Titanic","Drama",1997);
+
+const peli2 = new Pelicula("Avatar","Ciencia Ficción",2009);
+
+const peli3 = new Pelicula("Jurassic Park","Aventura",1993);
+
+const peli4 = new Pelicula("El Padrino","Crimen, Drama",1972);
+
+const peli5 = new Pelicula("El Señor de los Anillos","Aventura, Fantasía",2001);
+
+const peli6 = new Pelicula("La La Land","Dram, Musical",2016);
+
+
+
+//Agregar peliculas al registro
+
+registro.agregarPelicula(peli1);
+
+registro.agregarPelicula(peli2);
+
+registro.agregarPelicula(peli3);
+
+registro.agregarPelicula(peli4);
+
+registro.agregarPelicula(peli5);
+
+registro.agregarPelicula(peli6);
+
+
+
+//Imprimir el arreglo en consola
+
+function verArreglo() {
+
+  for (let i = 0; i < registro.cantDePeliculas(); i++) {
+
+    registro.peliculas[i].mostrarDatos();
+
+  }
+
+}
+
+
+
+verArreglo();
+
+console.log(registro.cantDePeliculas());
+
+
+
+registro.eliminarPelicula(peli3);
+
+verArreglo();
+
+console.log(registro.cantDePeliculas());
+
+
+
+registro.editarPelicula(peli6, "Harry Potter y la Piedra Filosofal", "Aventura,Fantasía", 2001);
+
+verArreglo();
+
